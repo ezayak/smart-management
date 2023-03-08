@@ -1,0 +1,56 @@
+$alert-success-color: #d4fdd4e1;
+$alert-warning-color: #fdd3cee1;
+
+@keyframes appearingAnimation{
+    0%{
+      opacity: 0;
+    }
+    50%{
+      opacity: 0.5;
+    }
+    100%{
+      opacity: 1;
+    }
+}
+
+.alert-container {
+    width: 300px;
+    min-height: 30px;
+    border: 1px solid var(--clr-alert);
+    display: flex;
+    padding: 5px;
+    background-color: var(--clr-alert);
+    position: relative;
+    animation-name: appearingAnimation;
+    animation-duration: 200ms;
+    animation-fill-mode: forwards;
+    border-radius: 5px;
+
+    .alert-close-button:after{
+        display: inline-block;
+        content: "\00d7";
+        font-size: small;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        color: initial;
+      }
+    
+    &.success {
+      background-color:$alert-success-color;
+      border-color: $alert-success-color;
+    }
+
+    &.warning {
+        background-color:$alert-warning-color;
+        border-color: $alert-warning-color;      
+    }
+
+
+    .alert-close-button {
+      background-color: transparent;
+      border-color: transparent;
+    }  
+}
