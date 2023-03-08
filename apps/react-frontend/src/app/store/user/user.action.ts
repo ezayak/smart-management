@@ -1,8 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
-import { AuthAction, User, USER_ACTION_TYPES } from './user.types';
+import { AuthAction, USER_ACTION_TYPES } from './user.types';
 import firebase from '../../utils/firebase/firebase';
-import authService from '../../services/security/auth.service';
 
 // Set loading
 export const setLoading = (
@@ -35,10 +34,10 @@ export const getUserDataByLogin = (): ThunkAction<
 > => {
   return async (dispatch) => {
     //todo: get data from backend about user
-    const user: User = await authService.login();
+    //const user: User = await authService.login();
     dispatch({
       type: USER_ACTION_TYPES.SET_USER,
-      payload: user,
+      payload: 'user',
     });
   };
 };

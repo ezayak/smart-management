@@ -1,5 +1,5 @@
 import './login-page.style.scss';
-import { useState, FC, useEffect } from 'react';
+import { useState, FC } from 'react';
 import { SimpleAlert } from '../../components/forms/simple-alert/simple-alert.component';
 import { Spinner } from '../../components/forms/spinner/spinner.component';
 import { TextInput } from '../../components/forms/text-input/text-input.component';
@@ -8,9 +8,6 @@ import {
   ERROR_MESSAGES,
   errorMessages,
 } from '../../utils/common/error-message.utils';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store';
-import { getUserDataByLogin } from '../../store/user/user.action';
 
 interface ConfirmationResult {
   confirm: (password: string) => Promise<string>;
@@ -31,7 +28,6 @@ const LoginPage: FC = () => {
   const [alertClass, setAlertClass] = useState('');
   const [confirmationResult, setConfirmationResult] =
     useState<ConfirmationResult>();
-  const dispatch = useDispatch<AppDispatch>();
 
   const onChangeHandler = (value: string, id: string) => {
     if (id === 'phone') {
@@ -41,7 +37,7 @@ const LoginPage: FC = () => {
     }
   };
 
-  useEffect(() => {}, []);
+  //useEffect(() => {}, []);
 
   const login = () => {
     setLoading(true);

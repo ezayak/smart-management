@@ -1,11 +1,10 @@
-import { User } from '../../store/user/user.types';
 import firebase from '../../utils/firebase/firebase';
 import BaseHttpService from '../base-http.service';
 
 class AuthService extends BaseHttpService {
   private URL = 'auth';
 
-  async login(): Promise<User> {
+  async login() {
     const firebaseUser = firebase.auth().currentUser;
     console.log('lena-dev firebaseUser', firebaseUser);
 
@@ -18,7 +17,7 @@ class AuthService extends BaseHttpService {
 
     const user = await this.get(`auth/user-data`);
     console.log('lena-dev user', user);
-    return user;
+    //return user;
   }
 }
 
