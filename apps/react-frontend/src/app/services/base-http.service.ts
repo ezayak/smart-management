@@ -4,11 +4,12 @@ export default class BaseHttpService {
   BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3000/api';
   _accessToken: string | null = null;
 
-  async get(endpoint: string, options = {}) {
+  async get<T>(endpoint: string, options = {}): Promise<T> {
     Object.assign(options, this._getCommonOptions());
     return axios
       .get(`${this.BASE_URL}/${endpoint}`, options)
-      .catch((error) => this._handleHttpError(error));
+      .then((res: { data: T }) => res.data)
+      .catch((error) => this._handleHttpError(error)) as Promise<T>;
   }
 
   async post(endpoint: string, data = {}, options = {}) {

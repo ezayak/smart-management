@@ -84,8 +84,8 @@ const LoginPage: FC = () => {
         .confirm(password)
         .then((result) => {
           console.log('login result', result);
-          setMessage('login is successfull');
-          setAlertClass('success');
+          //setMessage('login is successfull');
+          //setAlertClass('success');
           //dispatch(getUserDataByLogin());
         })
         .catch((err: any) => {
