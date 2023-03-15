@@ -1,29 +1,36 @@
+@import '../../../styles/variables.module.scss';
+
 .text-input {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
 
-    label {
-        font-size: smaller;
-        color: var(--clr-light-gray);        
-    }
+  @media (min-width: $breakpoint-mobile) {
+    width: 300px;
+  }
 
-    label:has(+ input:focus) {
-        color: initial;
-    }
+  label {
+    font-size: smaller;
+    color: var(--clr-light-gray);
+  }
 
-    input {
-        border: 1px solid #d6d6d6;
-        height: 30px;
-        min-width: 300px;
-        border-radius: 5px;
-        outline: none;
-        padding-left: 10px;
-    }
+  label:has(+ input:focus) {
+    color: initial;
+  }
 
-    input:focus, input:focus-visible {
-        border: 2px solid var(--clr-dark-gray);
-        outline: none;
-    }
+  input {
+    border: 1px solid #d6d6d6;
+    height: 30px;
+    min-width: 100%;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 10px;
+  }
 
+  input:focus,
+  input:focus-visible {
+    border: 2px solid var(--clr-dark-gray);
+    outline: none;
+  }
 }

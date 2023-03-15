@@ -1,5 +1,5 @@
 import { IsOptional, IsString } from 'class-validator';
-import { Role } from '../../roles/role.entity';
+import { Role } from '../../../db/security/role.entity';
 
 export class UsersFilterDto {
   @IsOptional()

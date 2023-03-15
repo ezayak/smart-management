@@ -1,12 +1,12 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { User } from '../users/user.entity';
+import { User } from '../../db/security/user.entity';
+import { FirebaseAuthGuard } from './firebase-auth.guard';
 import { GetUser } from './get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
   @Get('/user-data')
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(FirebaseAuthGuard)
   getUserData(@GetUser() user: User) {
     return user;
   }

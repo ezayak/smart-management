@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 import { RolesService } from '../roles/roles.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersFilterDto } from './dto/users-filter.dto';
-import { User } from './user.entity';
+import { User } from '../../db/security';
 
 @Injectable()
 export class UsersService {

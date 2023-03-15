@@ -7,13 +7,14 @@ import { HomePage } from './routes/home-page/home-page.component';
 import { LoginPage } from './routes/login-page/login-page.component';
 import { Navigation } from './routes/navigation/navigation';
 import firebase from './utils/firebase/firebase';
-import { setLoading, getUserDataByLogin } from './store/user/user.action';
+import { setLoading, setUserData } from './store/user/user.action';
 import { RootState } from './store';
 import { Spinner } from './components/forms/spinner/spinner.component';
 import ProtectedRoute from './components/auth/protected-route.component';
 import { AdminPage } from './routes/admin-page/admin-page.component';
 import { AppDispatch } from './store';
 import PublicRoute from './components/auth/public-route.component';
+import authService from './services/security/auth.service';
 
 export const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,11 +25,9 @@ export const App: FC = () => {
 
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        dispatch(getUserDataByLogin());
-        // firebase.auth().currentUser?.getIdToken(true)
-        //   .then(idToken => {
-        //     console.log('lena-dev token', idToken);
-        //   });
+        authService.login().then((user) => {
+          dispatch(setUserData(user));
+        });
 
         dispatch(setLoading(true));
         //setting information about user

@@ -42,3 +42,5 @@ Thumbs.db
 /apps/nest-backend/.env
 /apps/react-frontend/src/.env
 apps/react-frontend/src/environments/environment.ts
+apps/nest-backend/src/app/security/auth/dodgeball-firebase-adminsdk.json
+apps/nest-backend/src/app/firebase/dodgeball-firebase-adminsdk.json

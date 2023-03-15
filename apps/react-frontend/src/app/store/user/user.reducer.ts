@@ -22,6 +22,8 @@ const userReducer = (state = initailState, action: AuthAction) => {
         loading: action.payload,
       };
     case USER_ACTION_TYPES.SET_ERROR:
+      console.log('lena-dev action.payload', action.payload);
+
       return {
         ...state,
         error: action.payload,

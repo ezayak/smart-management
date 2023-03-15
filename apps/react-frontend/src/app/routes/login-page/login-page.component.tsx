@@ -8,6 +8,10 @@ import {
   ERROR_MESSAGES,
   errorMessages,
 } from '../../utils/common/error-message.utils';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../store';
+import authService from '../../services/security/auth.service';
+import { setUserData } from '../../store/user/user.action';
 
 interface ConfirmationResult {
   confirm: (password: string) => Promise<string>;
@@ -28,6 +32,7 @@ const LoginPage: FC = () => {
   const [alertClass, setAlertClass] = useState('');
   const [confirmationResult, setConfirmationResult] =
     useState<ConfirmationResult>();
+  const dispatch = useDispatch<AppDispatch>();
 
   const onChangeHandler = (value: string, id: string) => {
     if (id === 'phone') {
@@ -84,9 +89,14 @@ const LoginPage: FC = () => {
         .confirm(password)
         .then((result) => {
           console.log('login result', result);
-          //setMessage('login is successfull');
-          //setAlertClass('success');
-          //dispatch(getUserDataByLogin());
+          authService.login().then((user) => {
+            dispatch(setUserData(user));
+
+            if (!user) {
+              setMessage(errorMessages(ERROR_MESSAGES.USER_DOES_NOT_EXISTS));
+              setCodeIsRequired(false);
+            }
+          });
         })
         .catch((err: any) => {
           setMessage(errorMessages(ERROR_MESSAGES.WRONG_VERIFICATION_CODE));
@@ -97,42 +107,43 @@ const LoginPage: FC = () => {
 
   return (
     <div className="login-page">
-      <h1>Login</h1>
-      <TextInput
-        label="Phone"
-        value={phone}
-        id="phone"
-        onChange={onChangeHandler}
-      />
-
-      {codeIsRequired && (
+      <div className="login-page-content page-content">
+        <h1>Login</h1>
         <TextInput
-          label="password"
-          value={password}
-          id="password"
-          type="password"
+          label="Phone"
+          value={phone}
+          id="phone"
           onChange={onChangeHandler}
         />
-      )}
-      {loading && <Spinner />}
-      {!loading && !codeIsRequired && (
-        <button className="btn" onClick={login}>
-          Login
-        </button>
-      )}
-      {!loading && codeIsRequired && (
-        <button className="btn" onClick={confirm}>
-          Confirm
-        </button>
-      )}
-      <SimpleAlert
-        visible={!!message}
-        onClose={() => setMessage('')}
-        alertClass={alertClass}
-      >
-        <div>{message}</div>
-      </SimpleAlert>
 
+        {codeIsRequired && (
+          <TextInput
+            label="password"
+            value={password}
+            id="password"
+            type="password"
+            onChange={onChangeHandler}
+          />
+        )}
+        {loading && <Spinner />}
+        {!loading && !codeIsRequired && (
+          <button className="btn" onClick={login}>
+            Login
+          </button>
+        )}
+        {!loading && codeIsRequired && (
+          <button className="btn" onClick={confirm}>
+            Confirm
+          </button>
+        )}
+        <SimpleAlert
+          visible={!!message}
+          onClose={() => setMessage('')}
+          alertClass={alertClass}
+        >
+          <div>{message}</div>
+        </SimpleAlert>
+      </div>
       <div id="capthca-verifier"></div>
     </div>
   );

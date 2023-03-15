@@ -1,9 +1,9 @@
 import { Controller, Body, Post, UseGuards, Get } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import { RolesService } from './roles.service';
 
 @Controller('roles')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(FirebaseAuthGuard)
 export class RolesController {
   constructor(private rolesService: RolesService) {}
   @Post()

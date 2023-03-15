@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
+import { FirebaseAuthGuard } from './auth/firebase-auth.guard';
 import { RolesModule } from './roles/roles.module';
-import { User } from './users/user.entity';
+import { User } from '../db/security/user.entity';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -13,7 +14,7 @@ import { UsersModule } from './users/users.module';
     RolesModule,
     TypeOrmModule.forFeature([User]),
   ],
-  providers: [],
+  providers: [FirebaseAuthGuard],
   exports: [UsersModule, RolesModule, AuthModule],
 })
 export class SecurityModule {}

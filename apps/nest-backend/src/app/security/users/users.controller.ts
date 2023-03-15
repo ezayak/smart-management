@@ -12,18 +12,17 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersFilterDto } from './dto/users-filter.dto';
 import { UserRoleDto } from './dto/user-role.dto';
-import { User } from './user.entity';
-import { AuthGuard } from '@nestjs/passport';
+import { User } from '../../db/security';
 
 import { UsersService } from './users.service';
 import { RolesGuard } from '../roles/roles.guard';
-import { GetUser } from '../auth/get-user.decorator';
+import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(FirebaseAuthGuard, RolesGuard)
   @Get()
   getUsers(@Query() filterDto: UsersFilterDto): Promise<User[]> {
     return this.usersService.getUsers(filterDto);
@@ -35,13 +34,13 @@ export class UsersController {
   }
 
   @Post()
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(FirebaseAuthGuard, RolesGuard)
   createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.createUser(createUserDto);
   }
 
   @Delete('/:id')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(FirebaseAuthGuard, RolesGuard)
   deleteUser(@Param('id') id: string): Promise<boolean> {
     return this.usersService.deleteUser(id);
   }
@@ -52,7 +51,7 @@ export class UsersController {
   // }
 
   @Patch('/:id/role')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @UseGuards(FirebaseAuthGuard, RolesGuard)
   changeUserRole(
     @Param('id') id: string,
     @Body() userRoleDto: UserRoleDto

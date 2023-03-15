@@ -1,11 +1,6 @@
 import { IsDate, IsEmail, IsOptional, IsPhoneNumber } from 'class-validator';
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-} from 'typeorm';
-import { Role } from '../roles/role.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Role } from './role.entity';
 
 @Entity('users')
 export class User {

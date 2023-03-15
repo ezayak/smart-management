@@ -1,11 +1,30 @@
+@import '../../styles/variables.module.scss';
+
 .login-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-block-size: -webkit-fill-available;
-  min-block-size: -moz-available;
-  background-color: var(--clr-white);
-  gap: 20px;
+
+  .login-page-content {
+    background-color: var(--clr-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    padding-bottom: 40px;
+
+    @media (min-width: $breakpoint-middle) {
+      width: 600px;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-tablet) {
+}
+
+@media (min-width: $breakpoint-mobile) {
 }
