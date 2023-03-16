@@ -11,10 +11,10 @@ import { setLoading, setUserData } from './store/user/user.action';
 import { RootState } from './store';
 import { Spinner } from './components/forms/spinner/spinner.component';
 import ProtectedRoute from './components/auth/protected-route.component';
-import { AdminPage } from './routes/admin-page/admin-page.component';
 import { AppDispatch } from './store';
 import PublicRoute from './components/auth/public-route.component';
 import authService from './services/security/auth.service';
+import { DashboardPage } from './routes/dashboard/dashboard.component';
 
 export const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,15 +25,20 @@ export const App: FC = () => {
 
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        authService.login().then((user) => {
-          dispatch(setUserData(user));
-        });
-
         dispatch(setLoading(true));
-        //setting information about user
-      }
 
-      dispatch(setLoading(false));
+        authService
+          .login()
+          .then((user) => {
+            dispatch(setUserData(user));
+            dispatch(setLoading(false));
+          })
+          .catch(() => {
+            dispatch(setLoading(false));
+          });
+      } else {
+        dispatch(setLoading(false));
+      }
     });
 
     return unsubscribe;
@@ -47,25 +52,27 @@ export const App: FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigation />}>
+      <Route path="/" element={<Navigation publicResource={true} />}>
         <Route index element={<HomePage />}></Route>
+      </Route>
+      <Route path="/admin" element={<Navigation publicResource={false} />}>
         <Route
-          path="/admin"
+          path="/admin/dashboard"
           element={
             <ProtectedRoute>
-              <AdminPage />
+              <DashboardPage />
             </ProtectedRoute>
           }
         ></Route>
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
-          }
-        ></Route>
       </Route>
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      ></Route>
     </Routes>
   );
 };

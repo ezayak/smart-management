@@ -3,3 +3,14 @@ $breakpoint-tablet: 768px;
 $breakpoint-small: 960px;
 $breakpoint-middle: 1024px;
 $breakpoint-large: 1260px;
+
+$clr-white: var(--clr-white);
+$clr-secondary: var(--clr-secondary);
+$clr-light-gray: var(--clr-light-gray);
+$clr-dark-gray: var(--clr-dark-gray);
+$clr-alert: var(--clr-alert);
+
+$header-height: 60px;
+$header-side-padding: 20px;
+$header-background: $clr-white;
+$page-header-background: $clr-secondary;

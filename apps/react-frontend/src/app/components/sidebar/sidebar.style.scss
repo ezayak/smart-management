@@ -1,0 +1,22 @@
+@import './../../styles/variables.module.scss';
+
+.sidebar {
+  position: relative;
+  width: 300px;
+  z-index: 15;
+  height: 100%;
+  background-color: $clr-white;
+  transition: all 0.1s ease-out;
+}
+
+.short-menu {
+  width: 100px;
+
+  &:hover {
+    transition: all 0.1s ease-out;
+    width: 300px;
+  }
+}
+.sidebar-shadow {
+  box-shadow: 7px 0 60px rgba(0, 0, 0, 0.05);
+}

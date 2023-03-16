@@ -32,20 +32,27 @@ $breakpoint-laptop: 1024px;
 
 .main-container {
   height: 100%;
-  padding: 60px 10px;
+  display: flex;
+  flex-direction: row;
+  // padding: 60px 10px;
 
-  @media (min-width: 480px) {
-    padding: 60px 10px;
-  }
-  @media (min-width: 768px) {
-    padding: 60px 40px;
-  }
-  @media (min-width: 1024px) {
-    padding: 60px 50px;
-  }
-  @media (min-width: 1260px) {
-    padding: 60px 60px;
-  }
+  // @media (min-width: 480px) {
+  //   padding: 60px 10px;
+  // }
+  // @media (min-width: 768px) {
+  //   padding: 60px 40px;
+  // }
+  // @media (min-width: 1024px) {
+  //   padding: 60px 50px;
+  // }
+  // @media (min-width: 1260px) {
+  //   padding: 60px 60px;
+  // }
+}
+
+.page-content {
+  height: 100%;
+  padding: 30px;
 }
 
 .btn {
